@@ -26,7 +26,7 @@ public class MainController {
 
         scope.span().setTag("hello", "hello");
 
-        ResponseEntity<String> response = restTemplate.getForEntity("http://localhost:8083/hello", String.class);
+        ResponseEntity<String> response = restTemplate.getForEntity("http://localhost:9083/hello", String.class);
         String body = response.getBody();
         scope.span().log(ImmutableMap.of("event", "string-format", "value", "Hello World from Server 2 <----> " + body));
         scope.span().finish();

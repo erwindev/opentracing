@@ -16,7 +16,7 @@ import zipkin2.reporter.okhttp3.OkHttpSender;
 import java.util.HashMap;
 
 public class TraceUtil {
-    public static com.uber.jaeger.Tracer jaegerTracer(String service) {
+    public static io.opentracing.Tracer jaegerTracer(String service) {
         Configuration.SamplerConfiguration samplerConfig = Configuration.SamplerConfiguration.fromEnv()
                 .withType(ConstSampler.TYPE)
                 .withParam(1);
@@ -28,7 +28,7 @@ public class TraceUtil {
                 .withSampler(samplerConfig)
                 .withReporter(reporterConfig);
 
-        return (com.uber.jaeger.Tracer) config.getTracer();
+        return config.getTracer();
     }
 
     public static io.opentracing.Tracer zipkinTracer(String service) {
