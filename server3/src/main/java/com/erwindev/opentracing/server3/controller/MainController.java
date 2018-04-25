@@ -1,5 +1,6 @@
 package com.erwindev.opentracing.server3.controller;
 
+import com.erwindev.opentracing.server3.service.BackendService;
 import com.erwindev.opentracing.server3.util.TraceUtil;
 import com.google.common.collect.ImmutableMap;
 import io.opentracing.Scope;
@@ -14,17 +15,22 @@ import org.springframework.web.bind.annotation.RestController;
 public class MainController {
 
     @Autowired
+    private BackendService backendService;
+
+    @Autowired
     private Tracer tracer;
 
     @RequestMapping("/hello")
     public String hello(@RequestHeader HttpHeaders headers){
         Scope scope = TraceUtil.startServerSpan(tracer, headers, "/hello");
 
-        scope.span().setTag("hello", "hello");
+        scope.span().setTag("server3", "hello");
 
-        scope.span().log(ImmutableMap.of("event", "string-format", "value", "Hello World from Server 3"));
+        String body = backendService.process();
+
+        //scope.span().log(ImmutableMap.of("event", "string-format", "value", "Hello World from Server 3"));
         scope.span().finish();
 
-        return "Hello World from Server 3";
+        return body;
     }
 }
