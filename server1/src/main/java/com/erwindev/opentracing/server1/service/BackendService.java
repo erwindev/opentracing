@@ -17,17 +17,18 @@ public class BackendService {
 
     private static final Logger logger = LoggerFactory.getLogger(BackendService.class);
 
-    @HystrixCommand(fallbackMethod = "reliable", commandProperties = {
+    @HystrixCommand(fallbackMethod = "handleError", commandProperties = {
             @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "4"),
             @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "10000")})
     public String process(){
+        logger.info("Calling server2");
         ResponseEntity<String> response = restTemplate.getForEntity("http://localhost:9082/hello", String.class);
         logger.info("Returned from server2");
         return response.getBody();
     }
 
-    private String reliable() {
-        logger.info("Degraded service");
-        return "Degraded Hello Service!";
+    private String handleError() {
+        logger.info("server2 is down!");
+        return "Degraded Hello Service (server2 is down)!";
     }
 }

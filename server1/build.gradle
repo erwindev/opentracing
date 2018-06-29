@@ -39,8 +39,8 @@ ext{
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
-	compile('org.springframework.cloud:spring-cloud-starter-netflix-hystrix')
 	compile("org.springframework.boot:spring-boot-starter-actuator")
+	compile('org.springframework.cloud:spring-cloud-starter-netflix-hystrix')
 
 	compile group: 'com.uber.jaeger', name: 'jaeger-core', version: '0.26.0'
 	compile group: 'com.google.guava', name: 'guava', version: '24.1-jre'

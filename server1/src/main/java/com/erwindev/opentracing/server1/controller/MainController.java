@@ -2,7 +2,6 @@ package com.erwindev.opentracing.server1.controller;
 
 import com.erwindev.opentracing.server1.service.BackendService;
 import com.erwindev.opentracing.server1.util.TraceUtil;
-import com.google.common.collect.ImmutableMap;
 import io.opentracing.Scope;
 import io.opentracing.Tracer;
 import org.springframework.beans.factory.annotation.Autowired;
